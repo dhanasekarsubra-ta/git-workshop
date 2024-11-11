@@ -1,4 +1,4 @@
-name: CI-HelloWorld
+name: Build
 
 on:
   push:
@@ -19,3 +19,25 @@ jobs:
       - name: Run ls
         run: |
           ls -la
+
+  with-checkout-job:
+    name: With Checkout
+    runs-on: 'ubuntu-latest'
+    
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+
+      - name: Install tree & run
+        run: |
+            sudo apt-get install -y tree
+            tree .
+      - name: Install Dependencies
+        run: |
+            sudo apt-get install -y python3 python3-pip
+            tree .
+      - name: Build package
+        run: |
+            pip install --upgrade build
+            python -m build
+            tree .

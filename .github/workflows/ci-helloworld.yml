@@ -41,3 +41,21 @@ jobs:
             pip install --upgrade build
             python -m build
             tree .
+      - name: Artifact creation
+        run: |
+            rm dist/my_package-0.0.0.tar.gz
+            mv script.py dist/script.py
+            tree .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: dist/
+  deploy:
+      name: Deploy job
+      needs: with-checkout-job
+      runs-on: 'ubuntu-latest'
+      steps:
+        - name: Download artifact
+          uses: actions/download-artifact@v4
+          with:
+            name: my-artifact

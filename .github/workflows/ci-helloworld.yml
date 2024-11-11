@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  hello-worls-job:
+  hello-world-job:
     name: Hello World
     runs-on: 'ubuntu-latest'
     steps:
